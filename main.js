@@ -1,3 +1,4 @@
+var roadManager = require("manager.road");
 var droneManager = require("manager.drone");
 
 module.exports.loop = function()
@@ -15,5 +16,6 @@ module.exports.loop = function()
 	var room = Game.spawns["spawn1"].room;
 	
 	// Run managers
+	roadManager.run(room);
 	droneManager.run(room);
 }
