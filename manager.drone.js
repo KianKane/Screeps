@@ -1,6 +1,7 @@
 /* The drone manager is responsible for:
  *	- Gathering energy.
  *	- Replenishing the energy of structures.
+ *	- Building structures at construction sites.
  *	- Upgrading the controller.
  *
  * The drone manager is in charge of the following roles:
