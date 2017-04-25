@@ -12,6 +12,9 @@
  *	- transfer
  */
  
+var NUM_DRONES = 12;
+var CONTROLLER_DANGER_LEVEL = 1000;
+ 
 module.exports =
 {
 	run: function(room)
@@ -25,7 +28,7 @@ module.exports =
 		var controller = room.controller;
 
 		// Create drones
-		if (drones.length < 6 && spawns.length > 0)
+		if (drones.length < NUM_DRONES && spawns.length > 0)
 		{
 			var pattern = [MOVE, CARRY, WORK];
 			var patternCost = [50, 50, 100];
@@ -60,7 +63,7 @@ module.exports =
 			}
 			else if (drone.memory.state == "transfer")
 			{
-				if (controller.ticksToDowngrade < 1000)
+				if (controller.ticksToDowngrade < CONTROLLER_DANGER_LEVEL)
 				{
 					if (drone.upgradeController(controller) == ERR_NOT_IN_RANGE)
 							drone.moveTo(controller, {visualizePathStyle: {stroke: "#9700ff"}});

@@ -1,5 +1,8 @@
-/* The road manager
+/* The road manager uses a heatmap to decide where to place roads.
  */
+
+var ROAD_INTERVAL = 200;
+var ROAD_THRESHOLD = 6;
  
 module.exports =
 {
@@ -39,14 +42,14 @@ module.exports =
 		room.memory.heatMap = heatMap;
 		
 		// After 100 ticks.
-		if (room.memory.heatMapTicks == 100)
+		if (room.memory.heatMapTicks == ROAD_INTERVAL)
 		{
 			// Place roads
 			for (var y = 0; y < 50; y++)
 			{
 				for (var x = 0; x < 50; x++)
 				{
-					if (heatMap[x+y*50] >= 3)
+					if (heatMap[x+y*50] >= ROAD_THRESHOLD)
 						room.createConstructionSite(x, y, STRUCTURE_ROAD);
 				}
 			}
