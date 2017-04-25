@@ -58,24 +58,32 @@ module.exports =
 			}
 			else if (drone.memory.state == "transfer")
 			{
-				var structure = drone.pos.findClosestByPath(structures);
-				if (structure)
+				if (controller.ticksToDowngrade < 1000)
 				{
-					if (drone.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
-						drone.moveTo(structure, {visualizePathStyle: {stroke: "#0fff00"}});
+					if (drone.upgradeController(controller) == ERR_NOT_IN_RANGE)
+							drone.moveTo(controller, {visualizePathStyle: {stroke: "#9700ff"}});
 				}
 				else
 				{
-					var site = drone.pos.findClosestByPath(sites)
-					if (site)
+					var structure = drone.pos.findClosestByPath(structures);
+					if (structure)
 					{
-						if (drone.build(site) == ERR_NOT_IN_RANGE)
-							drone.moveTo(site, {visualizePathStyle: {stroke: "#008fff"}});
+						if (drone.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+							drone.moveTo(structure, {visualizePathStyle: {stroke: "#0fff00"}});
 					}
 					else
 					{
-						if (drone.upgradeController(controller) == ERR_NOT_IN_RANGE)
-							drone.moveTo(controller, {visualizePathStyle: {stroke: "#9700ff"}});
+						var site = drone.pos.findClosestByPath(sites)
+						if (site)
+						{
+							if (drone.build(site) == ERR_NOT_IN_RANGE)
+								drone.moveTo(site, {visualizePathStyle: {stroke: "#008fff"}});
+						}
+						else
+						{
+							if (drone.upgradeController(controller) == ERR_NOT_IN_RANGE)
+								drone.moveTo(controller, {visualizePathStyle: {stroke: "#9700ff"}});
+						}
 					}
 				}
 				
