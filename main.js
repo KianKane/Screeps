@@ -1,4 +1,4 @@
-var economyManager = require("manager.economy");
+var droneManager = require("manager.drone");
 
 module.exports.loop = function()
 {
@@ -11,6 +11,9 @@ module.exports.loop = function()
 		}
 	}
 	
+	// Get room
+	var room = Game.spawns["spawn1"].room;
+	
 	// Run managers
-	economyManager.run(Game.spawns["spawn1"]);
+	droneManager.run(room);
 }
