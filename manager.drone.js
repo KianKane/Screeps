@@ -33,8 +33,9 @@ module.exports =
 			while (cost < spawns[0].energyCapacity)
 			{
 				var index = modules.length % pattern.length;
-				modules.push(pattern[index]);
 				cost += patternCost[index];
+				if (cost <= spawns[0].energyCapacity)
+					modules.push(pattern[index]);
 			}
 			spawns[0].createCreep(modules, undefined, {role: "drone", state: "harvest"});
 		}
