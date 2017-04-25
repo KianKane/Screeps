@@ -1,27 +1,17 @@
+var spawner = require("spawner");
+
 module.exports =
 {
 	run: function(room, numUpgraders)
 	{
 		// Find elements
 		var upgraders = room.find(FIND_MY_CREEPS, {filter: (creep) => {return creep.memory.role == "upgrader";} });
-		var spawns = room.find(FIND_STRUCTURES, {filter: (structure) => {return structure.structureType == STRUCTURE_SPAWN && structure.energy == structure.energyCapacity;} });
 		var sources = room.find(FIND_SOURCES);
 
 		// Create upgraders
-		if (upgraders.length < numUpgraders && spawns.length > 0)
+		if (upgraders.length < numUpgraders && room.energyAvailable >= room.energyCapacityAvailable)
 		{
-			var pattern = [MOVE, CARRY, WORK];
-			var patternCost = [50, 50, 100];
-			var cost = 0;
-			var modules = [];
-			while (cost < spawns[0].energyCapacity)
-			{
-				var index = modules.length % pattern.length;
-				cost += patternCost[index];
-				if (cost <= spawns[0].energyCapacity)
-					modules.push(pattern[index]);
-			}
-			spawns[0].createCreep(modules, undefined, {role: "upgrader", harvesting: true});
+			spawner.spawn(room, [MOVE, CARRY, WORK], {role: "upgrader", harvesting: true});
 		}
 		
 		// Manage upgraders

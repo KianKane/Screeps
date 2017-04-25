@@ -1,3 +1,5 @@
+var spawner = require("spawner");
+
 module.exports =
 {
 	run: function(room, numHarvesters)
@@ -5,24 +7,12 @@ module.exports =
 		// Find elements
 		var harvesters = room.find(FIND_MY_CREEPS, {filter: (creep) => {return creep.memory.role == "harvester";} });
 		var needingEnergy = room.find(FIND_STRUCTURES, {filter: (structure) => {return structure.energy < structure.energyCapacity;} });
-		var spawns = room.find(FIND_STRUCTURES, {filter: (structure) => {return structure.structureType == STRUCTURE_SPAWN && structure.energy == structure.energyCapacity;} });
 		var sources = room.find(FIND_SOURCES);
 
 		// Create harvesters
-		if (harvesters.length < numHarvesters && spawns.length > 0)
+		if (harvesters.length < numHarvesters && room.energyAvailable >= room.energyCapacityAvailable)
 		{
-			var pattern = [MOVE, CARRY, WORK];
-			var patternCost = [50, 50, 100];
-			var cost = 0;
-			var modules = [];
-			while (cost < spawns[0].energyCapacity)
-			{
-				var index = modules.length % pattern.length;
-				cost += patternCost[index];
-				if (cost <= spawns[0].energyCapacity)
-					modules.push(pattern[index]);
-			}
-			spawns[0].createCreep(modules, undefined, {role: "harvester", harvesting: true});
+			spawner.spawn(room, [MOVE, CARRY, WORK], {role: "harvester", harvesting: true});
 		}
 		
 		// Manage harvesters
