@@ -1,5 +1,9 @@
-var roadManager = require("manager.road");
-var droneManager = require("manager.drone");
+/* Main */
+
+var builderManager = require("manager.builder");
+var harvesterManager = require("manager.harvester");
+var repairerManager = require("manager.repairer");
+var upgraderManager = require("manager.upgrader");
 
 module.exports.loop = function()
 {
@@ -16,6 +20,8 @@ module.exports.loop = function()
 	var room = Game.spawns["spawn1"].room;
 	
 	// Run managers
-	roadManager.run(room);
-	droneManager.run(room);
+	upgraderManager.run(room, 3);
+	builderManager.run(room, 3);
+	repairerManager.run(room, 3);
+	harvesterManager.run(room, 3);
 }
