@@ -44,10 +44,22 @@ module.exports =
 			else
 			{
 				var structure = repairer.pos.findClosestByPath(needingRepair);
-				if (structure)
+				var bestPriority = Number.MIN_VALUE;
+				var bestStructure = null;
+				for (var sKey in needingRepair)
 				{
-					if (repairer.repair(structure) == ERR_NOT_IN_RANGE)
-						repairer.moveTo(structure, {visualizePathStyle: {stroke: "#0fff00"}});
+					var structure = needingRepair[sKey];
+					var priority = (1 - repairer.pos.getRangeTo(structure)/50) * (1 - structure.hits/structure.hitsMax);
+					if (priority >= bestPriority)
+					{
+						bestPriority = priority;
+						bestStructure = structure;
+					}
+				}
+				if (bestStructure)
+				{
+					if (repairer.repair(bestStructure) == ERR_NOT_IN_RANGE)
+						repairer.moveTo(bestStructure, {visualizePathStyle: {stroke: "#0fff00"}});
 				}
 				if (repairer.carry.energy <= 0)
 					repairer.memory.harvesting = true;
