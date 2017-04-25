@@ -49,7 +49,7 @@ module.exports =
 				for (var sKey in needingRepair)
 				{
 					var structure = needingRepair[sKey];
-					var priority = (1 - repairer.pos.getRangeTo(structure)/50) * (1 - structure.hits/structure.hitsMax);
+					var priority = (50 - repairer.pos.getRangeTo(structure)) + (200 - Math.min(structure.hits, 100000)/Math.min(structure.hitsMax, 100000)*200);
 					if (priority >= bestPriority)
 					{
 						bestPriority = priority;
