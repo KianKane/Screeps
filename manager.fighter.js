@@ -8,11 +8,16 @@ module.exports =
 		if (flag)
 		{
 			// Find elements
-			var fighters = room.find(FIND_MY_CREEPS, {filter: (creep) => {return creep.memory.role == "fighter";} });
-			var enemyTowers = room.find(FIND_HOSTILE_STRUCTURES, {filter: (structure) => {return structure.structureType == STRUCTURE_SPAWN;} });
-			var enemyCreeps = room.find(FIND_HOSTILE_CREEPS);
-			var enemyBuildings = room.find(FIND_HOSTILE_STRUCTURES);
-			
+			var fighters = [];
+			var allCreeps = Game.creeps;
+			for (var key in Game.creeps)
+			{
+				if (allCreeps[key].memory.role == "fighter")
+				{
+					fighters.push(allCreeps[key]);
+				}
+			}
+
 			// Create fighters
 			if (fighters.length < numFighters && room.energyAvailable >= room.energyCapacityAvailable)
 			{
@@ -23,6 +28,9 @@ module.exports =
 			for (var key in fighters)
 			{
 				var fighter = fighters[key];
+				var enemyTowers = fighter.room.find(FIND_HOSTILE_STRUCTURES, {filter: (structure) => {return structure.structureType == STRUCTURE_SPAWN;} });
+				var enemyCreeps = fighter.room.find(FIND_HOSTILE_CREEPS);
+				var enemyBuildings = fighter.room.find(FIND_HOSTILE_STRUCTURES);
 				if (flag.room == fighter.room)
 				{
 					var enemyTower = fighter.pos.findClosestByPath(enemyTowers);

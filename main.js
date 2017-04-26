@@ -23,9 +23,9 @@ module.exports.loop = function()
 	// Run managers
 	upgraderManager.run(room, 4);
 	builderManager.run(room, 2);
-	repairerManager.run(room, 3);
-	fighterManager.run(room, 4);
-	harvesterManager.run(room, 6);
+	repairerManager.run(room, 4);
+	fighterManager.run(room, 2);
+	harvesterManager.run(room, 7);
 	towerManager.run(room);
 	
 	var elapsed = Game.cpu.getUsed();
