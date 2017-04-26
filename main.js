@@ -3,6 +3,7 @@ var builderManager = require("manager.builder");
 var harvesterManager = require("manager.harvester");
 var repairerManager = require("manager.repairer");
 var upgraderManager = require("manager.upgrader");
+var towerManager = require("manager.tower");
 
 module.exports.loop = function()
 {
@@ -23,6 +24,7 @@ module.exports.loop = function()
 	builderManager.run(room, 2);
 	repairerManager.run(room, 3);
 	harvesterManager.run(room, 5);
+	towerManager.run(room);
 	
 	var elapsed = Game.cpu.getUsed();
 	console.log("CPU Usage: " + Math.round((elapsed/Game.cpu.limit)*100) + "%" + 
