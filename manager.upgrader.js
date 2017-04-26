@@ -32,7 +32,8 @@ module.exports =
 			}
 			else
 			{
-				if (upgrader.upgradeController(upgrader.room.controller) == ERR_NOT_IN_RANGE)
+				var source = upgrader.pos.findClosestByPath(sources);
+				if ((source && upgrader.pos.getRangeTo(source) == 1) || upgrader.upgradeController(upgrader.room.controller) == ERR_NOT_IN_RANGE)
 					upgrader.moveTo(upgrader.room.controller, {visualizePathStyle: {stroke: "#9700ff"}});
 				if (upgrader.carry.energy <= 0)
 					upgrader.memory.harvesting = true;
