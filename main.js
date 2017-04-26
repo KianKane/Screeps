@@ -19,10 +19,10 @@ module.exports.loop = function()
 	var room = Game.spawns["spawn1"].room;
 	
 	// Run managers
-	upgraderManager.run(room, 3);
-	builderManager.run(room, 3);
+	upgraderManager.run(room, 5);
+	builderManager.run(room, 2);
 	repairerManager.run(room, 3);
-	harvesterManager.run(room, 3);
+	harvesterManager.run(room, 5);
 	
 	var elapsed = Game.cpu.getUsed();
 	console.log("CPU Usage: " + Math.round((elapsed/Game.cpu.limit)*100) + "%" + 
