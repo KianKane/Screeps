@@ -33,7 +33,9 @@ module.exports =
 			}
 			else
 			{
-				var site = builder.pos.findClosestByPath(sites);
+				var site = builder.pos.findClosestByPath(sites, {filter: (site) => {return site.structureType != STRUCTURE_WALL}});
+				if (!site)
+					site =builder.pos.findClosestByPath(sites);
 				if (site)
 				{
 					if (builder.build(site) == ERR_NOT_IN_RANGE)
