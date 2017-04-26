@@ -4,6 +4,7 @@ var harvesterManager = require("manager.harvester");
 var repairerManager = require("manager.repairer");
 var upgraderManager = require("manager.upgrader");
 var towerManager = require("manager.tower");
+var fighterManager = require("manager.fighter");
 
 module.exports.loop = function()
 {
@@ -20,10 +21,11 @@ module.exports.loop = function()
 	var room = Game.spawns["spawn1"].room;
 	
 	// Run managers
-	upgraderManager.run(room, 6);
+	upgraderManager.run(room, 4);
 	builderManager.run(room, 2);
 	repairerManager.run(room, 3);
-	harvesterManager.run(room, 7);
+	fighterManager.run(room, 4);
+	harvesterManager.run(room, 6);
 	towerManager.run(room);
 	
 	var elapsed = Game.cpu.getUsed();
