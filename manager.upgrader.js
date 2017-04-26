@@ -11,7 +11,7 @@ module.exports =
 		// Create upgraders
 		if (upgraders.length < numUpgraders && room.energyAvailable >= room.energyCapacityAvailable)
 		{
-			spawner.spawn(room, [MOVE, CARRY, WORK], {role: "upgrader", harvesting: true});
+			spawner.spawn(room, [MOVE, CARRY, WORK, MOVE, WORK, WORK], {role: "upgrader", harvesting: true});
 		}
 		
 		// Manage upgraders

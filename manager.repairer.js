@@ -12,7 +12,7 @@ module.exports =
 		// Create repairers
 		if (repairers.length < numRepairers && room.energyAvailable >= room.energyCapacityAvailable)
 		{
-			spawner.spawn(room, [MOVE, CARRY, WORK], {role: "repairer", harvesting: true});
+			spawner.spawn(room, [MOVE, CARRY, WORK, MOVE, WORK, WORK], {role: "repairer", harvesting: true});
 		}
 		
 		// Manage repairers

@@ -12,7 +12,7 @@ module.exports =
 		// Create builders
 		if (builders.length < numBuilders && room.energyAvailable >= room.energyCapacityAvailable)
 		{
-			spawner.spawn(room, [MOVE, CARRY, WORK], {role: "builder", harvesting: true});
+			spawner.spawn(room, [MOVE, CARRY, WORK, MOVE, WORK, WORK], {role: "builder", harvesting: true});
 		}
 		
 		// Manage builders

@@ -12,7 +12,7 @@ module.exports =
 		// Create harvesters
 		if (harvesters.length < numHarvesters && room.energyAvailable >= room.energyCapacityAvailable)
 		{
-			spawner.spawn(room, [MOVE, CARRY, WORK], {role: "harvester", harvesting: true});
+			spawner.spawn(room, [MOVE, CARRY, WORK, MOVE, WORK, WORK], {role: "harvester", harvesting: true});
 		}
 		
 		// Manage harvesters
