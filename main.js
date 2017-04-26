@@ -20,10 +20,10 @@ module.exports.loop = function()
 	var room = Game.spawns["spawn1"].room;
 	
 	// Run managers
-	upgraderManager.run(room, 5);
+	upgraderManager.run(room, 6);
 	builderManager.run(room, 2);
 	repairerManager.run(room, 3);
-	harvesterManager.run(room, 5);
+	harvesterManager.run(room, 7);
 	towerManager.run(room);
 	
 	var elapsed = Game.cpu.getUsed();
