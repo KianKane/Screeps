@@ -7,7 +7,7 @@ module.exports =
 		// Find elements
 		var repairers = room.find(FIND_MY_CREEPS, {filter: (creep) => {return creep.memory.role == "repairer";} });
 		var needingRepair = room.find(FIND_STRUCTURES, {filter: (structure) => {return structure.hits < structure.hitsMax;} });
-		var sources = room.find(FIND_SOURCES);
+		var sources = room.find(FIND_SOURCES, {filter: (source) => {return source.energy > 0;} });
 
 		// Create repairers
 		if (repairers.length < numRepairers && room.energyAvailable >= room.energyCapacityAvailable)

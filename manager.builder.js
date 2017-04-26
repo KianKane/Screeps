@@ -7,7 +7,7 @@ module.exports =
 		// Find elements
 		var builders = room.find(FIND_MY_CREEPS, {filter: (creep) => {return creep.memory.role == "builder";} });
 		var sites = room.find(FIND_CONSTRUCTION_SITES);
-		var sources = room.find(FIND_SOURCES);
+		var sources = room.find(FIND_SOURCES, {filter: (source) => {return source.energy > 0;} });
 
 		// Create builders
 		if (builders.length < numBuilders && room.energyAvailable >= room.energyCapacityAvailable)

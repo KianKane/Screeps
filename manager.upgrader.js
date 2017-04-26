@@ -6,7 +6,7 @@ module.exports =
 	{
 		// Find elements
 		var upgraders = room.find(FIND_MY_CREEPS, {filter: (creep) => {return creep.memory.role == "upgrader";} });
-		var sources = room.find(FIND_SOURCES);
+		var sources = room.find(FIND_SOURCES, {filter: (source) => {return source.energy > 0;} });
 
 		// Create upgraders
 		if (upgraders.length < numUpgraders && room.energyAvailable >= room.energyCapacityAvailable)

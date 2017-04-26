@@ -7,7 +7,7 @@ module.exports =
 		// Find elements
 		var harvesters = room.find(FIND_MY_CREEPS, {filter: (creep) => {return creep.memory.role == "harvester";} });
 		var needingEnergy = room.find(FIND_STRUCTURES, {filter: (structure) => {return structure.energy < structure.energyCapacity;} });
-		var sources = room.find(FIND_SOURCES);
+		var sources = room.find(FIND_SOURCES, {filter: (source) => {return source.energy > 0;} });
 
 		// Create harvesters
 		if (harvesters.length < numHarvesters && room.energyAvailable >= room.energyCapacityAvailable)
