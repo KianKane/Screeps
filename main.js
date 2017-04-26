@@ -1,5 +1,4 @@
 /* Main */
-
 var builderManager = require("manager.builder");
 var harvesterManager = require("manager.harvester");
 var repairerManager = require("manager.repairer");
@@ -7,8 +6,6 @@ var upgraderManager = require("manager.upgrader");
 
 module.exports.loop = function()
 {
-	var start = new Date().getTime();
-	
 	// Clean memory
 	for(var i in Memory.creeps)
 	{
@@ -27,10 +24,10 @@ module.exports.loop = function()
 	repairerManager.run(room, 3);
 	harvesterManager.run(room, 3);
 	
-	var elapsed = new Date().getTime()- start;
-	console.log("CPU Usage: " + Math.round((elapsed / Game.cpu.limit)*100) + "%"
-		"  Elapsed: " + elapsed + "ms" + 
-		"  Limit: " + Game.cpu.limit + "ms" + 
-		"  Full Limit: " + Game.cpu.tickLimit + "ms" + 
-		"  Bucket: " + Game.cpu.bucket + "ms");
+	var elapsed = Game.cpu.getUsed();
+	console.log("CPU Usage: " + Math.round((elapsed/Game.cpu.limit)*100) + "%" + 
+		"  Elapsed: " + Math.round(elapsed*100)/100 + "ms" + 
+		"  Limit: " + Math.round(Game.cpu.limit*100)/100 + "ms" + 
+		"  Full Limit: " + Math.round(Game.cpu.tickLimit*100)/100 + "ms" + 
+		"  Bucket: " + Math.round(Game.cpu.bucket*100)/100 + "ms");
 }
