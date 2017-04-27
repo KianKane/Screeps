@@ -34,7 +34,7 @@ Creep.prototype.repairer = function()
         for (var structureKey in structures)
         {
             var structure = structures[structureKey];
-            var priority = (50 - this.pos.getRangeTo(structure)) + (200 - Math.min(structure.hits, 100000)/Math.min(structure.hitsMax, 100000)*200);
+            var priority = (50 - this.pos.getRangeTo(structure)) + (200 - structure.hits/structure.hitsMax*200);
             if (priority >= bestPriority)
             {
                 bestPriority = priority;
