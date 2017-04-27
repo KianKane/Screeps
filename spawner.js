@@ -35,10 +35,11 @@ module.exports =
 		spawn.createCreep(modules, undefined, memory);
 	},
 
-	spawnToCount: function(room, targetNumHarvesters, targetNumUpgraders, targetNumRepairers, targetNumBuilders)
+	spawnToCount: function(room, targetNumHarvesters, targetNumUpgraders, targetNumFarvesters, targetNumRepairers, targetNumBuilders)
 	{
 		var numHarvesters = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "harvester"}}).length;
 		var numUpgraders = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "upgrader"}}).length;
+		var numFarvesters = _.filter(Game.creeps, function(creep){return creep.memory.role === "farvester" && creep.memory.home === room.name;});
 		var numRepairers = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "repairer"}}).length;
 		var numBuilders = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "builder"}}).length;
 
@@ -49,6 +50,10 @@ module.exports =
 		else if (numUpgraders < targetNumUpgraders)
 		{
 			this.spawnUpgrader(room);
+		}
+		else if (numFarvesters < targetNumFarvesters)
+		{
+			this.spawnFarvester(room);
 		}
 		else if (numRepairers < targetNumRepairers)
 		{
@@ -93,6 +98,15 @@ module.exports =
 		if (bestSpawn)
 		{
 			this.spawn(bestSpawn, [MOVE, CARRY, WORK, MOVE, WORK, WORK], {role: "upgrader", harvesting: true});
+		}
+	},
+
+	spawnFarvester: function(room)
+	{
+		var bestSpawn = nearestSpawnToSource(room);
+		if (bestSpawn)
+		{
+			this.spawn(bestSpawn, [MOVE, CARRY, WORK, MOVE, CARRY, CARRY], {role: "farvester", harvesting: true, home: room.name});
 		}
 	}
 };

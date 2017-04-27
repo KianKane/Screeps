@@ -27,8 +27,13 @@ Creep.prototype.harvester = function()
     }
     else
     {
-        var structure = this.pos.findClosestByPath(this.room.find(FIND_MY_STRUCTURES,
-            {filter: function(structure){ return structure.energy < structure.energyCapacity; }}));
+        var structure = structure = this.pos.findClosestByPath(this.room.find(FIND_MY_STRUCTURES,
+            {filter: function(structure){ return structure.energy < structure.energyCapacity && structure.structureType !== STRUCTURE_CONTAINER && structure.structureType !== STRUCTURE_STORAGE; }}));
+        if (!structure)
+        {
+            structure = this.pos.findClosestByPath(this.room.find(FIND_MY_STRUCTURES,
+                {filter: function(structure){ return structure.energy < structure.energyCapacity; }}));
+        }
         if (structure)
         {
             if (this.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)

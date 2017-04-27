@@ -2,7 +2,9 @@ var DEFAULT_TARGET_NUM_HARVESTERS = 5;
 var DEFAULT_TARGET_NUM_UPGRADERS = 5;
 var DEFAULT_TARGET_NUM_REPAIRERS = 2;
 var DEFAULT_TARGET_NUM_BUILDERS = 1;
+var DEFAULT_TARGET_NUM_FARVESTERS = 0;
 
+require("creep.prototype.farvester");
 require("creep.prototype.builder");
 require("creep.prototype.harvester");
 require("creep.prototype.repairer");
@@ -39,6 +41,9 @@ module.exports.loop = function()
 			case "builder":
 				creep.builder();
 				break;
+            case "farvester":
+				creep.farvester();
+				break;
 			default: // If the creep has no known role then assign it the harvester role.
 				creep.memory.role = "harvester";
 				creep.memory.harvesting = true;
@@ -59,10 +64,11 @@ module.exports.loop = function()
 	for (var roomKey in Game.rooms)
 	{
 		var room = Game.rooms[roomKey];
-		if (room.energyAvailable === room.energyCapacityAvailable)
+		if (room.find(FIND_MY_SPAWNS).length > 0 && room.energyAvailable === room.energyCapacityAvailable)
 		{
 			var targetNumHarvesters = room.memory.targetNumHarvesters;
 			var targetNumUpgraders = room.memory.targetNumUpgraders;
+			var targetNumFarvesters = room.memory.targetNumFarvesters;
 			var targetNumRepairers = room.memory.targetNumRepairers;
 			var targetNumBuilders = room.memory.targetNumBuilders;
 
@@ -70,12 +76,14 @@ module.exports.loop = function()
 				targetNumHarvesters = DEFAULT_TARGET_NUM_HARVESTERS;
 			if (!targetNumUpgraders)
 				targetNumUpgraders = DEFAULT_TARGET_NUM_UPGRADERS;
+			if (!targetNumFarvesters)
+				targetNumFarvesters = DEFAULT_TARGET_NUM_FARVESTERS;
 			if (!targetNumRepairers)
 				targetNumRepairers = DEFAULT_TARGET_NUM_REPAIRERS;
 			if (!targetNumBuilders)
 				targetNumBuilders = DEFAULT_TARGET_NUM_BUILDERS;
 
-			spawner.spawnToCount(room, targetNumHarvesters, targetNumUpgraders, targetNumRepairers, targetNumBuilders);
+			spawner.spawnToCount(room, targetNumHarvesters, targetNumUpgraders, targetNumFarvesters, targetNumRepairers, targetNumBuilders);
 		}
 	}
 
