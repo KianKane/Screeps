@@ -27,7 +27,7 @@ Creep.prototype.repairer = function()
     }
     else
     {
-        var structures = this.room.find(FIND_MY_STRUCTURES,
+        var structures = this.room.find(FIND_STRUCTURES,
             {filter: function(structure){ return structure.hits < structure.hitsMax; }});
         var bestPriority = Number.MIN_VALUE;
         var bestStructure = null;
