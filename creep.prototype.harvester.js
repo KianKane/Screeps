@@ -27,7 +27,8 @@ Creep.prototype.harvester = function()
     }
     else
     {
-        var structure = this.pos.findClosestByPath(this.room.find(FIND_MY_STRUCTURES,
+
+        structure = this.pos.findClosestByPath(this.room.find(FIND_MY_STRUCTURES,
                 {filter: function(structure){ return structure.energy < structure.energyCapacity; }}));
         if (!structure)
         {

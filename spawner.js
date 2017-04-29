@@ -35,9 +35,10 @@ module.exports =
 		spawn.createCreep(modules, undefined, memory);
 	},
 
-	spawnToCount: function(room, targetNumHarvesters, targetNumUpgraders, targetNumFarvesters, targetNumRepairers, targetNumBuilders)
+	spawnToCount: function(room, targetNumHarvesters, targetNumFighters, targetNumUpgraders, targetNumFarvesters, targetNumRepairers, targetNumBuilders)
 	{
 		var numHarvesters = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "harvester"}}).length;
+		var numFighters = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "fighter"}}).length;
 		var numUpgraders = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "upgrader"}}).length;
 		var numFarvesters = _.filter(Game.creeps, function(creep){return creep.memory.role === "farvester" && creep.memory.home === room.name;});
 		var numRepairers = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "repairer"}}).length;
@@ -46,6 +47,10 @@ module.exports =
 		if (numHarvesters < targetNumHarvesters)
 		{
 			this.spawnHarvester(room);
+		}
+		else if (numFighters < targetNumFighters && room.find(FIND_HOSTILE_CREEPS).count > 0)
+		{
+			this.spawnFighter(room);
 		}
 		else if (numUpgraders < targetNumUpgraders)
 		{
@@ -107,6 +112,15 @@ module.exports =
 		if (bestSpawn)
 		{
 			this.spawn(bestSpawn, [MOVE, CARRY, WORK, MOVE, CARRY, CARRY], {role: "farvester", harvesting: true, home: room.name});
+		}
+	},
+
+	spawnFighter: function(room)
+	{
+		var bestSpawn = nearestSpawnToSource(room);
+		if (bestSpawn)
+		{
+			this.spawn(bestSpawn, [MOVE, ATTACK, TOUGH], {role: "fighter"});
 		}
 	}
 };
