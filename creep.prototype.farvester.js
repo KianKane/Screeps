@@ -41,7 +41,8 @@ Creep.prototype.farvester = function()
             if (this.room.name === this.memory.home)
             {
                 var structure = structure = this.pos.findClosestByPath(this.room.find(FIND_MY_STRUCTURES,
-                    {filter: function(structure){ return structure.energy < structure.energyCapacity && structure.structureType !== STRUCTURE_CONTAINER && structure.structureType !== STRUCTURE_STORAGE; }}));
+                    {filter: function(structure){ return (structure.energy < structure.energyCapacity && structure.structureType !== STRUCTURE_CONTAINER && structure.structureType !== STRUCTURE_STORAGE) ||
+                        ((structure.structureType !== STRUCTURE_CONTAINER || structure.structureType !== STRUCTURE_STORAGE) && _.sum(structure.store) < structure.storeCapacity); }}));
                 if (!structure)
                 {
                     structure = this.pos.findClosestByPath(this.room.find(FIND_MY_STRUCTURES,
