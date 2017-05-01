@@ -40,7 +40,7 @@ module.exports =
 		var numHarvesters = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "harvester"}}).length;
 		var numFighters = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "fighter"}}).length;
 		var numUpgraders = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "upgrader"}}).length;
-		var numFarvesters = _.filter(Game.creeps, function(creep){return creep.memory.role === "farvester" && creep.memory.home === room.name;});
+		var numFarvesters = _.filter(Game.creeps, function(creep){return creep.memory.role === "farvester" && creep.memory.home === room.name;}).length;
 		var numRepairers = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "repairer"}}).length;
 		var numBuilders = room.find(FIND_MY_CREEPS, {filter: function(creep){return creep.memory.role === "builder"}}).length;
 
